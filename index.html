@@ -1,238 +1,370 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Unofficial Presidential Election Results - Malawi 2025</title>
-  <style>
-    /* Global Styling */
-    body {
-      margin: 0;
-      font-family: "Poppins", "Segoe UI", sans-serif;
-      background: linear-gradient(135deg, #000000, #ff0000, #008000);
-      color: #fff;
-      padding: 20px;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unofficial Presidential Election Results - Malawi 2025</title>
 
-    /* Glass Effect */
-    .glass {
-      background: rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border-radius: 15px;
-      border: 1px solid rgba(255,255,255,0.1);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-      transition: transform 0.3s ease;
-    }
-    .glass:hover {
-      transform: translateY(-4px);
-    }
+<meta name="description" content="Live unofficial results of the Malawi 2025 Presidential Election. View vote counts, percentages, and standings for all presidential candidates including Peter Mutharika, Lazarus Chakwera, and Dalitso Kabambe.">
+<meta name="keywords" content="Malawi 2025 election, Malawi presidential results, Peter Mutharika, Lazarus Chakwera, Dalitso Kabambe, Malawi voting, unofficial election results, Malawi political news">
+<meta name="author" content="Malawi Electoral News Team">
 
-    /* Header */
-    header {
-      text-align: center;
-      padding: 25px;
-      margin-bottom: 30px;
-    }
-    header h1 {
-      font-size: 2rem;
-      margin: 0;
-      background: linear-gradient(90deg, #ff0000, #ffdd57, #008000);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      font-weight: 700;
-    }
-    header p {
-      margin-top: 10px;
-      font-size: 1rem;
-      color: #eee;
-    }
+<!-- Social Media SEO -->
+<meta property="og:title" content="Unofficial Presidential Election Results - Malawi 2025">
+<meta property="og:description" content="Live unofficial results of the Malawi 2025 Presidential Election. See vote counts and standings for all presidential candidates.">
+<meta property="og:url" content="https://elections.mwtether.online">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://elections.mwtether.online/preview.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Unofficial Presidential Election Results - Malawi 2025">
+<meta name="twitter:description" content="Live unofficial results of the Malawi 2025 Presidential Election. See vote counts and standings for all presidential candidates.">
+<meta name="twitter:image" content="https://elections.mwtether.online/preview.jpg">
 
-    /* Candidate Cards */
-    .results-container {
-      max-width: 950px;
-      margin: auto;
-      flex: 1;
-    }
-    .candidate-card {
-      margin-bottom: 20px;
-      padding: 20px;
-    }
-    .candidate-details h2 {
-      margin: 0;
-      font-size: 1.4rem;
-      color: #ffdd57;
-    }
-    .candidate-details p {
-      margin: 4px 0;
-      font-size: 0.95rem;
-      color: #f0f0f0;
-    }
-    .votes {
-      font-weight: bold;
-      color: #fff;
-      margin-top: 8px;
-    }
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto:wght@400;500;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
 
-    /* Progress Bar */
-    .progress-bar {
-      background: rgba(255,255,255,0.15);
-      border-radius: 12px;
-      overflow: hidden;
-      margin-top: 10px;
-      height: 24px;
-    }
-    .progress-fill {
-      height: 100%;
-      background: linear-gradient(90deg, #ff0000, #008000);
-      color: #fff;
-      text-align: right;
-      padding-right: 8px;
-      font-size: 0.85rem;
-      line-height: 24px;
-      font-weight: 600;
-      white-space: nowrap;
-      transition: width 1s ease-in-out;
-    }
+<style>
+body {
+  margin:0;
+  font-family:"Poppins","Roboto","Lato",sans-serif;
+  background:#f9fafb;
+  color:#333;
+  padding-top:120px;
+  line-height:1.5;
+  scroll-behavior: smooth;
+}
 
-    /* Footer */
-    footer {
-      text-align: center;
-      margin-top: 25px;
-      font-size: 0.85rem;
-      color: #ddd;
-    }
+header {
+  position: fixed;
+  top:0; left:0; width:100%;
+  background:#1e3a8a;
+  color:#fff;
+  text-align:center;
+  padding:15px 15px;
+  z-index:1000;
+  box-shadow:0 3px 12px rgba(0,0,0,0.3);
+  font-size:1vw;
+}
 
-    /* Popup */
-    #popup {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.85);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-    }
-    #popup-content {
-      padding: 35px;
-      text-align: center;
-      max-width: 400px;
-      animation: fadeIn 0.8s ease;
-    }
-    #popup h2 {
-      color: #ffdd57;
-      margin-bottom: 15px;
-    }
-    #popup button {
-      background: linear-gradient(90deg, #ff0000, #008000);
-      color: white;
-      border: none;
-      padding: 12px 28px;
-      font-size: 1.1em;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
-    #popup button:hover {
-      transform: scale(1.05);
-    }
+header h1 {
+  margin:0;
+  font-size:3vw;
+  font-weight:700;
+  line-height:1.2;
+  animation: fadeInDown 1s ease;
+}
 
-    /* Animations */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.9);}
-      to { opacity: 1; transform: scale(1);}
-    }
-  </style>
+header p {
+  margin:10px auto 0;
+  max-width:85vw;
+  font-size:1.1vw;
+  color:#dbeafe;
+  line-height:1.4;
+  animation: fadeIn 1.2s ease;
+}
+
+@keyframes fadeInDown {
+  0% {opacity:0; transform:translateY(-20px);}
+  100% {opacity:1; transform:translateY(0);}
+}
+@keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+.container {
+  max-width:900px;
+  margin:auto;
+  padding:20px 15px;
+}
+
+.total-votes {
+  background:#fff;
+  border-radius:12px;
+  padding:18px;
+  margin-bottom:25px;
+  box-shadow:0 3px 10px rgba(0,0,0,0.1);
+  text-align:center;
+  font-size:1.1rem;
+  font-weight:600;
+  color:#1e3a8a;
+  animation:fadeIn 1.5s ease;
+}
+
+.candidate-card {
+  background:#fff;
+  border-radius:12px;
+  padding:14px 16px;
+  margin-bottom:15px;
+  box-shadow:0 2px 6px rgba(0,0,0,0.1);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  opacity:0;
+}
+.candidate-card.show { opacity:1; transform:translateY(0); }
+.candidate-card:hover { transform:translateY(-5px); box-shadow:0 5px 15px rgba(0,0,0,0.15); }
+.candidate-card h2 { margin:0; font-size:1rem; font-weight:600; color:#1e3a8a; }
+.votes { margin:5px 0; font-size:0.85rem; color:#444; }
+
+.progress-bar { background:#e5e7eb; border-radius:8px; overflow:hidden; height:16px; margin-top:5px; }
+.progress-fill {
+  height:100%;
+  color:#fff;
+  text-align:right;
+  padding-right:5px;
+  font-size:0.75rem;
+  line-height:16px;
+  font-weight:600;
+  white-space:nowrap;
+  transition: width 1s ease-in-out;
+  border-radius:6px;
+}
+
+canvas { max-height:450px; margin:40px auto; display:block; animation:fadeIn 1.5s ease; }
+
+footer { text-align:center; margin:25px 0 60px; font-size:0.8rem; color:#666; }
+
+/* Single Share Button */
+#shareBtn {
+  position:fixed;
+  bottom:15px;
+  right:20px;
+  background:#1e3a8a;
+  color:white;
+  padding:12px 20px;
+  font-weight:600;
+  font-size:1rem;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+  z-index:2000;
+  box-shadow:0 4px 12px rgba(0,0,0,0.2);
+  transition:transform 0.2s;
+}
+#shareBtn:hover { transform:scale(1.05); }
+
+/* Music Play Popup Button */
+#musicBtn {
+  position:fixed;
+  bottom:70px;
+  right:20px;
+  background:#16a34a;
+  color:white;
+  padding:12px 20px;
+  font-weight:600;
+  font-size:1rem;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+  z-index:2000;
+  box-shadow:0 4px 12px rgba(0,0,0,0.2);
+  transition:transform 0.2s;
+}
+#musicBtn:hover { transform:scale(1.05); }
+
+/* Facebook Button */
+#fbBtn {
+  position: fixed;
+  bottom:130px; /* above music & share buttons */
+  right: 20px;
+  background: #1877f2; /* Facebook Blue */
+  color: white;
+  padding: 12px 20px;
+  font-weight: 600;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  z-index: 2000;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  transition: transform 0.2s;
+}
+#fbBtn:hover { transform: scale(1.05); }
+
+@media(max-width:600px){
+  header h1 { font-size:5vw; }
+  header p { font-size:3.5vw; }
+  .progress-fill { font-size:0.65rem; }
+}
+</style>
 </head>
 <body>
-  <header class="glass">
-    <h1>Unofficial Presidential Election Results - Malawi 2025</h1>
-    <p><strong>Disclaimer: </strong>These results are unofficial. Official results will be announced by the Malawi Electoral Commission (MEC).</p>
-  </header>
 
-  <div class="results-container" id="resultsContainer">
-    <!-- Candidates will load here -->
-  </div>
-
-  <footer>
-    &copy; 2025 Mwtether JGA - Unofficial Results
-  </footer>
-
-  <!-- Background Music -->
-  <audio id="bg-music" loop>
-    <source src="fm.aac" type="audio/mpeg">
-    Your browser does not support the audio element.
-  </audio>
-
-  <!-- Popup -->
-  <div id="popup">
-    <div id="popup-content" class="glass">
-      <h2>Welcome to Malawi 2025 Unofficial Results</h2>
-      <p>Click below to start playing the election song 🎶</p>
-      <button onclick="startMusic()">▶ Play Election Song</button>
-    </div>
-  </div>
-
-  <script>
-    function startMusic() {
-      const music = document.getElementById("bg-music");
-      music.play();
-      document.getElementById("popup").style.display = "none";
-    }
-
-    // Candidate Data
-    const candidates = [
-      { name: "Joyce Hilda Banda", party: "People's Party (PP)", votes: 6698 },
-      { name: "Thokozani Manyika Banda", party: "Independent", votes: 2135 },
-      { name: "Akwame Bandawe", party: "Anyamata Atsika Amayi Party (AAA)", votes: 4768 },
-      { name: "Lazarus McCarthy Chakwera", party: "Malawi Congress Party (MCP)", votes: 191136 },
-      { name: "Kamuzu Walter Chibambo", party: "People’s Transformation Party (PETRA)", votes: 1780 },
-      { name: "Adil James Chilungo", party: "Independent", votes: 1049 },
-      { name: "Cosmas Felix Chipojola", party: "Independent", votes: 971 },
-      { name: "Dalitso Singano Kabambe", party: "UTM Party (UTM)", votes: 31664 },
-      { name: "Atupele Austin Muluzi", party: "United Democratic Front (UDF)", votes: 10393 },
-      { name: "Arthur Peter Mutharika", party: "Democratic Progressive Party (DPP)", votes: 337798 },
-      { name: "Phunziriro Mvula", party: "Independent", votes: 1042 },
-      { name: "Frank Tumpale Mwenifumbo", party: "National Development Party (NDP)", votes: 703 },
-      { name: "Kondwani Nankhumwa", party: "People’s Development Party (PDP)", votes: 687 },
-      { name: "Jordan Sauti", party: "Patriotic Citizens Party (PCP)", votes: 215 },
-      { name: "Smart Mulumbe Swira", party: "Independent", votes: 256},
-      { name: "Milward Tobias", party: "Independent", votes: 596 },
-      { name: "Michel Bizweck Usi", party: "Odya Zake Alibe Mulandu (Odya Zake)", votes: 1977 }
-    ];
-
-    function renderResults() {
-      const container = document.getElementById("resultsContainer");
-      container.innerHTML = "";
-
-      // Sort candidates by votes (descending)
-      candidates.sort((a, b) => b.votes - a.votes);
-
-      const totalVotes = candidates.reduce((sum, c) => sum + c.votes, 0);
-
-      candidates.forEach(c => {
-        const percentage = totalVotes > 0 ? ((c.votes / totalVotes) * 100).toFixed(2) : 0;
-        const card = `
-          <div class="candidate-card glass">
-            <div class="candidate-details">
-              <h2>${c.name}</h2>
-              <p>Party: ${c.party}</p>
-              <p class="votes">Votes: ${c.votes.toLocaleString()}</p>
-              <div class="progress-bar">
-                <div class="progress-fill" style="width:${percentage}%">${percentage}%</div>
-              </div>
-            </div>
-          </div>
-        `;
-        container.innerHTML += card;
-      });
-    }
-
-    renderResults();
+<header>
+  <h1>Unofficial Presidential Election Results - Malawi 2025</h1>
+  <p><strong style="color: red;">Disclaimer</strong>: These results are unofficial and are collected from polling stations across Malawi. They are for informational purposes only. Official results will be announced by the Malawi Electoral Commission (MEC).</p>
+</header>
+<!-- Mobile Ad (468x60) -->
+<div class="ad-mobile" style="text-align:center;">
+  <script type="text/javascript">
+    atOptions = {
+      'key' : 'e7de74e30e13b661482af0486bd2f308',
+      'format' : 'iframe',
+      'height' : 60,
+      'width' : 468,
+      'params' : {}
+    };
   </script>
+  <script type="text/javascript" src="//frozenbiopsyskate.com/e7de74e30e13b661482af0486bd2f308/invoke.js"></script>
+</div>
+
+<!-- Desktop Ad (728x90) -->
+<div class="ad-desktop" style="text-align:center;">
+  <script type="text/javascript">
+    atOptions = {
+      'key' : 'bee92c821770ff9e14d884d55148a837',
+      'format' : 'iframe',
+      'height' : 90,
+      'width' : 728,
+      'params' : {}
+    };
+  </script>
+  <script type="text/javascript" src="//frozenbiopsyskate.com/bee92c821770ff9e14d884d55148a837/invoke.js"></script>
+</div>
+
+<style>
+/* Hide mobile ad on desktop */
+@media(min-width: 768px) {
+  .ad-mobile { display: none; }
+}
+/* Hide desktop ad on mobile */
+@media(max-width: 767px) {
+  .ad-desktop { display: none; }
+}
+</style>
+<div class="container">
+  <div class="total-votes" id="totalVotes"></div>
+  <div id="candidates"></div>
+  <canvas id="resultsChart"></canvas>
+</div>
+
+<footer>&copy; 2025 Mwtether JGA - Unofficial Results</footer>
+
+<!-- Buttons -->
+<button id="shareBtn">Share</button>
+<button id="musicBtn">Play Election Music</button>
+<button id="fbBtn">Follow on Facebook</button>
+
+<!-- Election Music (Hidden) -->
+<audio id="electionMusic" loop>
+  <source src="fm.aac" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+<script>
+const results = {
+  "Arthur Peter Mutharika (DPP)": 861174,
+  "Lazarus McCarthy Chakwera (MCP)": 343694,
+  "Dalitso Kabambe (UTM)": 79531,
+  "Others": 59758
+};
+
+const colors = {
+  "Arthur Peter Mutharika (DPP)": "#2563eb",
+  "Lazarus McCarthy Chakwera (MCP)": "#16a34a",
+  "Dalitso Kabambe (UTM)": "#dc2626",
+  "Others": "#000000"
+};
+
+// Render Progress Cards
+const container = document.getElementById("candidates");
+const totalVotes = Object.values(results).reduce((a,b)=>a+b,0);
+document.getElementById("totalVotes").innerText = `Total Votes Counted: ${totalVotes.toLocaleString()}`;
+
+let delay = 0;
+for(const [name,votes] of Object.entries(results)){
+  const percentage = totalVotes>0?((votes/totalVotes)*100).toFixed(2):0;
+  const card = document.createElement("div");
+  card.className = "candidate-card";
+  card.innerHTML = `
+    <h2>${name}</h2>
+    <p class="votes">Votes: ${votes.toLocaleString()}</p>
+    <div class="progress-bar">
+      <div class="progress-fill" style="width:${percentage}%; background:${colors[name]}">${percentage}%</div>
+    </div>
+  `;
+  container.appendChild(card);
+  setTimeout(()=>card.classList.add("show"), delay);
+  delay += 200;
+}
+
+// Pie Chart
+const ctx = document.getElementById('resultsChart').getContext('2d');
+new Chart(ctx, {
+  type:'pie',
+  data:{
+    labels:Object.keys(results),
+    datasets:[{
+      data:Object.values(results),
+      backgroundColor:Object.keys(results).map(key=>colors[key]),
+      borderWidth:2,
+      borderColor:"#fff"
+    }]
+  },
+  options:{
+    responsive:true,
+    plugins:{
+      legend:{position:"bottom", labels:{color:"#333", font:{size:12}}},
+      datalabels:{
+        color:"#fff",
+        font:{weight:"bold"},
+        formatter:(value,ctx)=>{
+          const sum = ctx.chart._metasets[0].total;
+          return ((value/sum)*100).toFixed(1)+"%";
+        }
+      }
+    }
+  },
+  plugins:[ChartDataLabels]
+});
+
+// Share Button
+document.getElementById('shareBtn').addEventListener('click', async () => {
+  const shareData = {
+    title: 'Unofficial Presidential Election Results - Malawi 2025',
+    text: 'Check the unofficial results of the Malawi 2025 Presidential Election!',
+    url: 'https://elections.mwtether.online'
+  };
+  if (navigator.share) {
+    try {
+      await navigator.share(shareData);
+      console.log('Shared successfully');
+    } catch(err) {
+      console.log('Error sharing:', err);
+    }
+  } else {
+    prompt('Copy this link to share:', shareData.url);
+  }
+});
+
+// Music Button
+const musicBtn = document.getElementById("musicBtn");
+const music = document.getElementById("electionMusic");
+musicBtn.addEventListener("click", () => {
+  music.play();
+  musicBtn.style.display = "none"; // hide button once music starts
+});
+
+// Facebook Button (Mobile App + Web)
+document.getElementById("fbBtn").addEventListener("click", () => {
+  const fbPageID = "757082310828113"; 
+  const fbWebURL = "https://www.facebook.com/unofficial results "; 
+
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+  if(isMobile){
+    
+    window.location.href = `fb://page/${fbPageID}`;
+    
+    setTimeout(() => {
+      window.open(fbWebURL, "_blank");
+    }, 1500);
+  } else {
+    // Desktop browser
+    window.open(fbWebURL, "_blank");
+  }
+});
+</script>
 </body>
-  </html>
+</html>
