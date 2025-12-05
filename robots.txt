@@ -7,7 +7,7 @@ User-agent: *
 Allow: /
 
 # Main sitemap 
-Sitemap: https://leaked.mwtether.online/sitemap.php
+Sitemap: https://leaked.mwtether.online/sitemap.xml
 
 # Allow all content 
 Allow: / *.css
