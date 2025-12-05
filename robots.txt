@@ -1,0 +1,72 @@
+# =============================================
+# FULL ROBOTS.TXT FOR LEAKED.MWTEHER.ONLINE
+#
+# =============================================
+
+User-agent: *
+Allow: /
+
+# Main sitemap 
+Sitemap: https://leaked.mwtether.online/sitemap.php
+
+# Allow all content 
+Allow: / *.css
+Allow: / *.js
+Allow: / *.jpg
+Allow: / *.jpeg
+Allow: / *.png
+Allow: / *.gif
+Allow: / *.webp
+Allow: / *.mp4
+Allow: / *.webm
+
+# Google-specific bots
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 2
+
+User-agent: Googlebot-Image
+Allow: /
+Crawl-delay: 2
+
+User-agent: Googlebot-Video
+Allow: /
+
+User-agent: Mediapartners-Google
+Allow: /
+
+User-agent: AdsBot-Google
+Allow: /
+
+# Bing, Yandex, DuckDuckGo, 
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 2
+
+User-agent: Slurp
+Allow: /
+
+User-agent: Yandex
+Allow: /
+Crawl-delay: 3
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+# Block bad/scraper bots 
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+# End of file
